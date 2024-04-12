@@ -1,0 +1,39 @@
+import React, { useContext, useRef, useState } from 'react'
+import './Navbar.css'
+import logo from './Assets/logo1.jpg'
+import cart_icon from './Assets/cart_icon.png'
+import { Link } from 'react-router-dom'
+import { ShopContext } from './Context/ShopContext'
+
+
+const Navbar=()=> {
+
+  const [menu, setMenu] = useState("shop")
+
+  const {getTotalCartItems} = useContext(ShopContext)
+const menuRef = useRef();
+
+  return (
+    <div className='navbar'>
+        <div className='nav-logo'>
+            <img className='Logo' src={logo} alt=''/>
+            <p>FashionHub</p>
+        </div>
+        <ul ref={menuRef} className='nav-menu'>
+            <li onClick={()=>setMenu("shop")}><Link className='Link'  to='/'>Shop</Link>{menu==='shop'?<hr/>:<></>}</li>
+            <li onClick={()=>setMenu("mens")}><Link className='Link' to='/mens'>Men</Link>{menu==='mens'?<hr/>:<></>}</li>
+            <li onClick={()=>setMenu("womens")}><Link className='Link' to='/womens'>Women</Link>{menu==='womens'?<hr/>:<></>}</li>
+            <li onClick={()=>setMenu("kids")}><Link className='Link' to='/kids'>kids</Link>{menu==='kids'?<hr/>:<></>}</li>
+
+
+        </ul>
+        <div className="nav-login-cart">
+        <Link to='/login'><button>Login</button></Link> 
+           <Link to='/cart'> <img className='Logo' src={cart_icon} alt=''/></Link>
+            <div className="nav-cart-count">{getTotalCartItems()}</div>
+        </div>
+      
+    </div>
+  )
+}
+export default Navbar;
